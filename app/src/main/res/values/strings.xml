@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AAD_Phase_2_Practice_Project</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nothing_to_show_yet">Nothing to show yet</string>
+    <string name="leaderboard">LEADERBOARD</string>
+    <string name="submit">Submit</string>
 </resources>

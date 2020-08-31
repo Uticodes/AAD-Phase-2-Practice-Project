@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.aad_phase_2_practice_project.views.MainFragment"
+        android:label=""
+        tools:layout="@layout/fragment_main" >
+
+        <action
+            android:id="@+id/action_navigation_home_to_submissionFragment"
+            app:destination="@id/submissionFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/submissionFragment"
+        android:name="com.example.aad_phase_2_practice_project.views.SubmissionFragment"
+        android:label="fragment_submission"
+        tools:layout="@layout/fragment_submission" />
+</navigation>
