@@ -63,7 +63,7 @@ class MainFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         MainActivity.updateToolBarTitle(requireActivity(),"")
-
+        MainActivity.showBarTitle(requireActivity())
     }
 
     override fun onResume() {

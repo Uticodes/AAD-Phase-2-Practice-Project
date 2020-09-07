@@ -126,6 +126,10 @@ class SubmissionFragment : Fragment(), YesDialogClick {
             })
     }
 
+    override fun onStart() {
+        super.onStart()
+        MainActivity.hideToolBarTitle(requireActivity())
+    }
     override fun getSelected() {
         handleSubmission()
         submitProgressBar.visibility = View.VISIBLE
