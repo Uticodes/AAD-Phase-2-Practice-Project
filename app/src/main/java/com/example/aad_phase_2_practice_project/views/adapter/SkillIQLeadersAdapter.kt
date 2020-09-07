@@ -1,5 +1,6 @@
 package com.example.aad_phase_2_practice_project.views.adapter
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,16 +40,16 @@ class SkillIQLeadersAdapter () : RecyclerView.Adapter<SkillIQLeadersAdapter.Skil
             R.layout.skilliq_items
         )
     ) {
-
+        @SuppressLint("SetTextI18n")
         fun bind(items: SkillIQLearnersResponse) {
 
             itemView.tvIqName.text = items.name
-            itemView.tvIqScores.text = items.score.toString()
+            itemView.tvIqScores.text = "${items.score} skill IQ Score,"
             itemView.tvIqCountry.text = items.country
             Glide
                 .with(itemView.imgIq)
                 .load(items.badgeUrl)
-                .centerCrop()
+                .fitCenter()
                 .placeholder(R.drawable.ic_skill_iq)
                 .into(itemView.imgIq)
 

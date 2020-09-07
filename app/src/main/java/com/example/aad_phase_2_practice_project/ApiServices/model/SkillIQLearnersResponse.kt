@@ -8,3 +8,4 @@ data class SkillIQLearnersResponse(
     @SerializedName("country") var country : String,
     @SerializedName("badgeUrl") var badgeUrl : String
 )
+

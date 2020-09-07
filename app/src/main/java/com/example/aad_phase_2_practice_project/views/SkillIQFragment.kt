@@ -14,6 +14,7 @@ import com.example.aad_phase_2_practice_project.R
 import com.example.aad_phase_2_practice_project.getRetrofit
 import com.example.aad_phase_2_practice_project.model.SkillIQLeadersEntity
 import com.example.aad_phase_2_practice_project.views.adapter.SkillIQLeadersAdapter
+import kotlinx.android.synthetic.main.fragment_skill_i_q.*
 import kotlinx.android.synthetic.main.skilliq_items.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -57,10 +58,15 @@ class SkillIQFragment : Fragment() {
         val service = getRetrofit.create(ApiServices::class.java)
         val call = service.getSkillIqLeaders()
 
+        skillProgressBar.visibility = View.VISIBLE
+        skill_iq_empty_text.visibility = View.VISIBLE
+
         call.enqueue(object : Callback<List<SkillIQLearnersResponse>> {
             override fun onResponse(call: Call<List<SkillIQLearnersResponse>>, response: Response<List<SkillIQLearnersResponse>>) {
                 if (response.code() == 200) {
                     val skillIq = response.body()!!
+                    skillProgressBar.visibility = View.GONE
+                    skill_iq_empty_text.visibility = View.GONE
                     skillIQLeadersAdapter.addItems(response.body()!!)
 
                 }
@@ -71,6 +77,8 @@ class SkillIQFragment : Fragment() {
                 tvIqName!!.text = t.message
                 tvIqCountry!!.text = t.message
                 tvIqScores!!.text = t.message
+                skillProgressBar.visibility = View.GONE
+                skill_iq_empty_text.visibility = View.VISIBLE
                 //imgIq.setImageResource(R.drawable) = t.message
             }
         })

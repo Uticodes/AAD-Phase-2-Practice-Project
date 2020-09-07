@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_main" >
 
         <action
-            android:id="@+id/action_navigation_home_to_submissionFragment"
+            android:id="@+id/to_submissionFragment"
             app:destination="@id/submissionFragment" />
 
     </fragment>
@@ -20,6 +20,38 @@
     <fragment
         android:id="@+id/submissionFragment"
         android:name="com.example.aad_phase_2_practice_project.views.SubmissionFragment"
-        android:label="fragment_submission"
-        tools:layout="@layout/fragment_submission" />
+        android:label=""
+        tools:layout="@layout/fragment_submission" >
+        <action
+            android:id="@+id/to_areYouSureDialogFragment"
+            app:destination="@id/areYouSureDialogFragment" />
+        <action
+            android:id="@+id/to_dialogSubmissionNotSuccessfulFragment"
+            app:destination="@id/dialogSubmissionNotSuccessfulFragment" />
+        <action
+            android:id="@+id/to_dialogSubmissionSuccessfulFragment"
+            app:destination="@id/dialogSubmissionSuccessfulFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/areYouSureDialogFragment"
+        android:name="com.example.aad_phase_2_practice_project.views.dialogs.AreYouSureDialogFragment"
+        android:label=""
+        tools:layout="@layout/fragment_are_you_sure_dialog" >
+        <action
+            android:id="@+id/to_dialogSubmissionNotSuccessfulFragment"
+            app:destination="@id/dialogSubmissionNotSuccessfulFragment" />
+        <action
+            android:id="@+id/to_dialogSubmissionSuccessfulFragment"
+            app:destination="@id/dialogSubmissionSuccessfulFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/dialogSubmissionNotSuccessfulFragment"
+        android:name="com.example.aad_phase_2_practice_project.views.dialogs.DialogSubmissionNotSuccessfulFragment"
+        android:label=""
+        tools:layout="@layout/fragment_dialog_submission_not_successful" />
+    <dialog
+        android:id="@+id/dialogSubmissionSuccessfulFragment"
+        android:name="com.example.aad_phase_2_practice_project.views.dialogs.DialogSubmissionSuccessfulFragment"
+        android:label=""
+        tools:layout="@layout/fragment_dialog_submission_successful" />
 </navigation>

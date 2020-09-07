@@ -7,8 +7,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val BaseUrl = "https://gadsapi.herokuapp.com/"
+val HamletBaseUrl = "https://hamlet.payfill.co/api/"
 val getRetrofit = Retrofit.Builder()
     .baseUrl(BaseUrl)
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+val getHamRetrofit = Retrofit.Builder()
+    .baseUrl(HamletBaseUrl)
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 

@@ -1,33 +1,43 @@
 package com.example.aad_phase_2_practice_project.views
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.aad_phase_2_practice_project.ApiServices.RetrofitClient
 import com.example.aad_phase_2_practice_project.R
+import com.example.aad_phase_2_practice_project.views.dialogs.AreYouSureDialogFragment
+import com.example.aad_phase_2_practice_project.views.dialogs.YesDialogClick
+import kotlinx.android.synthetic.main.fragment_skill_i_q.*
+import kotlinx.android.synthetic.main.fragment_submission.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [SubmissionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SubmissionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class SubmissionFragment : Fragment(), YesDialogClick {
+
+    //val builder : Alar
+    private var firstName: String = ""
+    private var lastName: String = ""
+    private var email: String = ""
+    private var link: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -38,23 +48,87 @@ class SubmissionFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_submission, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SubmissionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SubmissionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        AreYouSureDialogFragment.setYesDialogClick(this)
+
+       /* firstName = view.findViewById<EditText>(R.id.etFname).text.toString().trim()
+        lastName = view.findViewById<EditText>(R.id.etLname).text.toString().trim()
+        email = view.findViewById<EditText>(R.id.etEmail).text.toString().trim()
+        link = view.findViewById<EditText>(R.id.etProject).text.toString().trim()*/
+
+
+        btnSubmit.setOnClickListener {
+            val firstName = etFname.text.toString().trim()
+            val lastName = etLname.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val link = etProject.text.toString().trim()
+            when {
+                firstName.isBlank()  -> {
+                    etFname.error = "Enter first name"
+                    etFname.requestFocus()
+                    return@setOnClickListener
                 }
+                lastName.isBlank()  -> {
+                    etLname.error = "Enter last name"
+                    etLname.requestFocus()
+                    return@setOnClickListener
+                }
+                link.isBlank() -> {
+                    etProject.error = "Enter link to you Github"
+                    etProject.requestFocus()
+                    return@setOnClickListener
+                }
+                email.isBlank() -> {
+                    etEmail.error = "Enter Email"
+                    etEmail.requestFocus()
+                    return@setOnClickListener
+                }
+
             }
+
+              findNavController().navigate(R.id.to_areYouSureDialogFragment)
+        }
     }
+
+    private fun handleSubmission(){
+        val firstName = etFname.text.toString().trim()
+        val lastName = etLname.text.toString().trim()
+        val email = etEmail.text.toString().trim()
+        val link = etProject.text.toString().trim()
+        RetrofitClient.submitInstance.submission(firstName,lastName,email, link)
+
+            .enqueue(object: Callback<Void> {
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
+                    println("Submission Failure: ${t.message}")
+                    submitProgressBar.visibility = View.GONE
+                }
+
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+
+                    if(response.isSuccessful){
+                        submitProgressBar.visibility = View.GONE
+                        findNavController().navigate(R.id.to_dialogSubmissionSuccessfulFragment)
+                        /*val intent = Intent(requireContext(), MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)*/
+
+                    }else{
+                        submitProgressBar.visibility = View.GONE
+                        findNavController().navigate(R.id.to_dialogSubmissionNotSuccessfulFragment)
+                        Toast.makeText(requireContext(), "Submission Fail: ${response.errorBody()}", Toast.LENGTH_LONG).show()
+                        println("Submission Fail: ${response.body()}")
+                    }
+
+                }
+            })
+    }
+
+    override fun getSelected() {
+        handleSubmission()
+        submitProgressBar.visibility = View.VISIBLE
+    }
+
 }

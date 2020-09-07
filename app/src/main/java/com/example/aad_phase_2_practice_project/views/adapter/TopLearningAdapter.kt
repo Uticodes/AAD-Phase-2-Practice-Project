@@ -1,5 +1,6 @@
 package com.example.aad_phase_2_practice_project.views.adapter
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,10 +41,11 @@ class TopLearningAdapter () : RecyclerView.Adapter<TopLearningAdapter.LearningVi
         )
     ) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(items: LearnerLeardersResponse) {
 
             itemView.tvName.text = items.name
-            itemView.tvHours.text = items.hours.toString()
+            itemView.tvHours.text = "${items.hours} learning hours,"
             itemView.tvCountry.text = items.country
             Glide
                 .with(itemView.img)
