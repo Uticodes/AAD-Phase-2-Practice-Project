@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     companion object {
+
         fun updateToolBarTitle(activity: Activity, title: String) {
             activity.main_toolbar.title = title
         }

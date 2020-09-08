@@ -6,6 +6,7 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="3dp"
     android:minWidth="280dp"
+    android:minHeight="250dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.dialogs.DialogSubmissionNotSuccessfulFragment">
 
@@ -29,7 +30,7 @@
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="80dp"
             android:src="@drawable/cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

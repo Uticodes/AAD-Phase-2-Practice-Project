@@ -53,5 +53,9 @@
         android:id="@+id/dialogSubmissionSuccessfulFragment"
         android:name="com.example.aad_phase_2_practice_project.views.dialogs.DialogSubmissionSuccessfulFragment"
         android:label=""
-        tools:layout="@layout/fragment_dialog_submission_successful" />
+        tools:layout="@layout/fragment_dialog_submission_successful" >
+        <action
+            android:id="@+id/to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </dialog>
 </navigation>

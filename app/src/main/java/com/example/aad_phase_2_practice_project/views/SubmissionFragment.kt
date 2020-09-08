@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
 import com.example.aad_phase_2_practice_project.ApiServices.RetrofitClient
 import com.example.aad_phase_2_practice_project.R
@@ -16,6 +18,7 @@ import com.example.aad_phase_2_practice_project.views.dialogs.AreYouSureDialogFr
 import com.example.aad_phase_2_practice_project.views.dialogs.YesDialogClick
 import kotlinx.android.synthetic.main.fragment_skill_i_q.*
 import kotlinx.android.synthetic.main.fragment_submission.*
+import kotlinx.android.synthetic.main.fragment_submission.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,12 +30,6 @@ import retrofit2.Response
  * create an instance of this fragment.
  */
 class SubmissionFragment : Fragment(), YesDialogClick {
-
-    //val builder : Alar
-    private var firstName: String = ""
-    private var lastName: String = ""
-    private var email: String = ""
-    private var link: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,12 +49,6 @@ class SubmissionFragment : Fragment(), YesDialogClick {
         super.onViewCreated(view, savedInstanceState)
 
         AreYouSureDialogFragment.setYesDialogClick(this)
-
-       /* firstName = view.findViewById<EditText>(R.id.etFname).text.toString().trim()
-        lastName = view.findViewById<EditText>(R.id.etLname).text.toString().trim()
-        email = view.findViewById<EditText>(R.id.etEmail).text.toString().trim()
-        link = view.findViewById<EditText>(R.id.etProject).text.toString().trim()*/
-
 
         btnSubmit.setOnClickListener {
             val firstName = etFname.text.toString().trim()
@@ -129,10 +120,33 @@ class SubmissionFragment : Fragment(), YesDialogClick {
     override fun onStart() {
         super.onStart()
         MainActivity.hideToolBarTitle(requireActivity())
+        showSubmitView(requireActivity())
     }
+
+    override fun onResume() {
+        super.onResume()
+        showSubmitView(requireActivity())
+    }
+
+
     override fun getSelected() {
         handleSubmission()
         submitProgressBar.visibility = View.VISIBLE
+    }
+
+    fun hideSubmitView(){
+
+    }
+
+    companion object{
+        //val view: View? = null
+        fun hideSubmitView(activity: FragmentActivity){
+            activity.views.visibility = View.GONE
+        }
+        fun showSubmitView(activity: FragmentActivity){
+            activity.views.visibility = View.VISIBLE
+
+        }
     }
 
 }

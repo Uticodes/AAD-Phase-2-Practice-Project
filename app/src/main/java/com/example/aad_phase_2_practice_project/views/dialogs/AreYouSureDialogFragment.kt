@@ -11,6 +11,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.example.aad_phase_2_practice_project.R
+import com.example.aad_phase_2_practice_project.views.SubmissionFragment
 import kotlinx.android.synthetic.main.fragment_are_you_sure_dialog.*
 
 
@@ -41,13 +42,25 @@ class AreYouSureDialogFragment : DialogFragment() {
         requireDialog().window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setStyle(STYLE_NO_FRAME, android.R.style.Theme)
 
+
         imgClose.setOnClickListener {
             findNavController().popBackStack()
+            SubmissionFragment.showSubmitView(requireActivity())
         }
         btnYes.setOnClickListener {
             yesDialogClick?.getSelected()
             findNavController().popBackStack()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        SubmissionFragment.showSubmitView(requireActivity())
+    }
+
+    override fun onStart() {
+        super.onStart()
+        SubmissionFragment.hideSubmitView(requireActivity())
     }
 
     companion object{

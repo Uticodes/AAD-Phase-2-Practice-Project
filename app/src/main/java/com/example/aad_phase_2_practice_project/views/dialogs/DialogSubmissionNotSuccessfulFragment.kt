@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.aad_phase_2_practice_project.R
-
+import com.example.aad_phase_2_practice_project.views.SubmissionFragment
 
 
 /**
@@ -42,5 +42,15 @@ class DialogSubmissionNotSuccessfulFragment : DialogFragment() {
         Window.FEATURE_NO_TITLE
         requireDialog().window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setStyle(STYLE_NO_FRAME, android.R.style.Theme)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        SubmissionFragment.showSubmitView(requireActivity())
+    }
+
+    override fun onStart() {
+        super.onStart()
+        SubmissionFragment.hideSubmitView(requireActivity())
     }
 }
