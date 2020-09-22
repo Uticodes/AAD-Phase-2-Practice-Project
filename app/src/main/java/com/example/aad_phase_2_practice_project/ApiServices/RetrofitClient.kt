@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
 
 
-    private const val BASE_URL = "https://hamlet.payfill.co/api/"
+    private const val BASE_URL = "https://gadsapi.herokuapp.com/"
     private const val BASE_SUBMIT_URL = "https://docs.google.com/forms/d/e/"
 
     private val okHttpClient = OkHttpClient.Builder()
